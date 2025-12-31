@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Site Can't Be Reached</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f7f7f7; color: #5f6368; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { max-width: 600px; width: 100%; padding: 40px; }
+        .icon { width: 72px; height: 72px; background: #e8eaed; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        h1 { font-size: 22px; color: #202124; margin-bottom: 20px; font-weight: 400; }
+        p { font-size: 14px; line-height: 1.6; margin-bottom: 10px; }
+        .error-code { color: #5f6368; font-size: 12px; margin-top: 30px; border-top: 1px solid #e8eaed; padding-top: 10px; }
+        .button { display: inline-block; background-color: #1a73e8; color: white; padding: 10px 24px; border-radius: 4px; text-decoration: none; font-size: 14px; cursor: pointer; border: none; margin-top: 20px; }
+        .button:hover { background-color: #1765cc; }
+        ul { padding-left: 20px; margin: 10px 0; }
+        li { margin-bottom: 5px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="icon">
+            <svg width="40" height="40" viewBox="0 0 24 24"><path fill="#5f6368" d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+        </div>
+        <h1>No internet</h1>
+        <p>Try:</p>
+        <ul>
+            <li>Checking the network cables, modem, and router</li>
+            <li>Reconnecting to Wi-Fi</li>
+            <li>Running Windows Network Diagnostics</li>
+        </ul>
+        <button class="button" onclick="location.reload()">Diagnose Connection</button>
+        <div class="error-code">DNS_PROBE_FINISHED_NO_INTERNET</div>
+    </div>
+
+    <script>
+        // DAA Programs (Python) - Mapped to 1, 2, 3...
+        const daa = {
+            "1": `def selection_sort(arr):\n    for i in range(len(arr)):\n        # Find the index of the minimum element in the unsorted part of the array\n        min_idx = min(range(i, len(arr)), key=arr.__getitem__)\n        #Swap the found minimum element with the first element of the unsorted part\n        arr[i], arr[min_idx]=arr[min_idx],arr[i]\n# Example array\narr = [8, 5, -9, 0, 4, 85, 14]\nselection_sort(arr)\nprint('After Sorting:', arr)`, // [cite: 4-13]
+
+            "2": `from itertools import permutations\ndef tsp(graph, start):\n    # Generate all possible routes (permutations) and calculate their costs\n    return min(\n        sum(graph[route[i]] [route[i+1]] for i in range(len(route)-1)) + graph[route[-1]] [route[0]]\n        for route in permutations(range(len(graph))) if route[0] == start)\n# Define the graph as a distance matrix\ngraph =[\n    [0, 10, 15, 20], # Distances from city 0 to others\n    [10, 0, 35, 25], # Distances from city 1 to others\n    [15, 35, 0, 30], # Distances from city 2 to others\n    [20, 25, 30, 0]  # Distances from city 3 to others\n]\n# Starting city is 0\nprint('Minimum cost is', tsp(graph, 0))`, // [cite: 20-34]
+
+            "3": `def knapsack(values, weights, capacity):\n    # Sorting based on the value-to-weight ratio in descending order\n    ratio = sorted(zip(values, weights), key=lambda x: x[0]/x[1], reverse=True)\n    total_value = 0 # To store the total value of the knapsack\n    for v, w in ratio:\n        if capacity >= w: # If the entire weight can be taken\n            total_value += v\n            capacity -= w\n        else:\n            #Take a fraction of the item if it can't be fully taken\n            total_value += v * (capacity / w)\n            break # The knapsack is now full, break out of the loop\n    return total_value\n# Test the function\nvalues = [60, 100, 120]\nweights = [10, 20, 30]\ncapacity = 50\nprint(knapsack(values, weights, capacity))`, // [cite: 74-88]
+
+            "4": `from collections import deque\n#Depth-First Search (DFS) implementation\ndef dfs(graph, start, visited=None, visit_order=None):\n    if visited is None:\n        visited = set() # Create an empty set to track visited nodes\n        visit_order = [] # To keep the visit order\n    visited.add(start) # Mark the current node as visited\n    visit_order.append(start) #Record the visit order\n    # Visit all the neighbors that have not been visited yet\n    for neighbor in graph[start]:\n        if neighbor not in visited:\n            dfs(graph, neighbor, visited, visit_order)\n    return visit_order #Return the list of visited nodes in order\n\n# Breadth-First Search (BFS) implementation\ndef bfs(graph, start):\n    visited = set() # Create an empty set to track visited nodes\n    queue = deque([start]) # Initialize the queue with the starting node\n    visit_order = [] # To keep the visit order\n    # Continue processing nodes in the queue\n    while queue:\n        vertex = queue.popleft() # Dequeue a vertex\n        # If the vertex hasn't been visited, mark it and enqueue its neighbors\n        if vertex not in visited:\n            visited.add(vertex)\n            visit_order.append(vertex) #Record the visit order\n            # Add all unvisited neighbors to the queue\n            queue.extend([neighbor for neighbor in graph[vertex] if neighbor not in visited])\n    return visit_order # Return the list of visited nodes in order\n\n# Graph definition\ngraph = {\n    'A': ['B', 'C'],\n    'B': ['D', 'E'],\n    'C': ['F'],\n    'D': [],\n    'E': ['F'],\n    'F': [],\n}\n# Perform DFS and BFS\ndfs_result = dfs(graph, 'A')\nbfs_result = bfs(graph, 'A')\n# Output the results of DFS and BFS\nprint("DFS:", dfs_result)\nprint("BFS:", bfs_result)`, // [cite: 98-140]
+
+            "5": `def find_min_max(arr, low, high):\n    # If the array has only one element\n    if low == high:\n        return arr[low], arr[low]\n    # If the array has two elements\n    elif high == low + 1:\n        return (min(arr[low], arr[high]), max(arr[low], arr[high]))\n    # Finding the middle element\n    mid = (low + high) // 2\n    # Recursively find the min and max in both halves\n    min1, max1 = find_min_max(arr, low, mid)\n    min2, max2 = find_min_max(arr, mid + 1, high)\n    # Return the minimum of both mins and the maximum of both maxes\n    return min(min1, min2), max(max1, max2)\n# Array definition\narr = [100, 11, 445, 1, 330, 3000]\nmin_val, max_val = find_min_max(arr, 0, len(arr) - 1)\nprint("Minimum:", min_val)\nprint("Maximum:", max_val)`, // [cite: 147-163]
+
+            "6": `def quick_sort(arr):\n    if len(arr) <= 1: return arr\n    pivot=arr[len(arr)//2]\n    return quick_sort([x for x in arr if x < pivot])+[x for x in arr if x==pivot]+quick_sort([x for x in arr if x > pivot])\narr=[8,5,-9,0,2,3,55,20]\nprint('After Sorting')\nprint(quick_sort(arr))`, // [cite: 43-50]
+
+            "7": `def merge_sort(arr):\n    if len(arr) <= 1: return arr\n    mid=len(arr)//2\n    left, right=merge_sort(arr[:mid]), merge_sort(arr[mid:])\n    return sorted(left + right)\narr=[8,5,-9,0,4,55,13]\nprint('After sorting')\nprint(merge_sort(arr))`, // [cite: 59-66]
+
+            "8": `def degrees_and_adj_matrix(graph):\n    vertices = sorted(graph)\n    n = len(vertices)\n    adj_matrix = [[0]*n for _ in range(n)]\n    indegree, outdegree = {v: 0 for v in vertices}, {v: 0 for v in vertices}\n    for i, v in enumerate (vertices):\n        outdegree[v] = len(graph[v])\n        for u in graph[v]:\n            adj_matrix[i][vertices.index(u)] = 1\n            indegree[u] += 1\n    print("In-degree:", indegree)\n    print("Out-degree:", outdegree)\n    print("Adjacency Matrix:")\n    for row in adj_matrix:\n        print(row)\ngraph = {'A': ['B', 'C'], 'B': ['D'], 'C': ['D'], 'D': []}\ndegrees_and_adj_matrix(graph)`, // [cite: 172-187]
+
+            "9": `def optimal_bst(keys, freq):\n    n = len(keys)\n    cost = [[0]*n for _ in range(n)]\n    for i in range(n):\n        cost[i][i] = freq[i]\n    for length in range(2, n + 1):\n        for i in range(n - length + 1):\n            j = i + length - 1\n            cost[i][j] = float('inf')\n            for r in range(i, j + 1):\n                c = (cost[i][r-1] if r>i else 0) + (cost[r+1][j] if r <j else 0) + sum(freq[i:j+1])\n                if c < cost[i][j]:\n                    cost[i][j] = c\n    return cost[0][n-1]\nkeys=[10, 20, 30, 40]\nfreq = [4, 2, 6, 3]\nprint("Optimal cost:", optimal_bst(keys, freq))`, // [cite: 202-219]
+
+            "0": `import heapq\ndef prim(graph):\n    mst, visited, edges = [], set(), [(0, 0)]\n    while edges:\n        cost, u = heapq.heappop(edges)\n        if u in visited:\n            continue\n        visited.add(u)\n        mst.append((cost, u))\n        for v, w in graph[u]:\n            if v not in visited:\n                heapq.heappush(edges, (w, v))\n    return mst\ngraph = {\n    0: [(1, 2), (3, 6)],\n    1: [(0, 2), (2, 3), (3, 8), (4, 5)],\n    2: [(1, 3), (4, 7)],\n    3: [(0, 6), (1, 8)],\n    4: [(1, 5), (2, 7)]}\nmst = prim(graph)\nprint("MST edges:", mst)`, // [cite: 228-250]
+
+            "-": `def find(parent, i):\n    if parent[i] != i:\n        parent[i] = find(parent, parent[i])\n    return parent[i]\ndef union(parent, rank, x, y):\n    rootX, rootY = find(parent, x), find(parent, y)\n    if rootX != rootY:\n        if rank [rootX] > rank[rootY]:\n            parent[rootY] = rootX\n        elif rank [rootX] < rank [rootY]:\n            parent[rootX] = rootY\n        else:\n            parent[rootY]=rootX\n            rank[rootX] += 1\ndef kruskal(graph):\n    mst, edges = [], sorted(graph, key=lambda x: x[2])\n    parent, rank = {}, {}\n    for u, v, w in edges:\n        parent.setdefault(u, u)\n        parent.setdefault(v, v)\n        rank.setdefault(u, 0)\n        rank.setdefault(v, 0)\n    for u, v, w in edges:\n        if find(parent, u) != find(parent, v):\n            union(parent, rank, u, v)\n            mst.append((u, v, w))\n    return mst\ngraph=[(0, 1, 10), (0, 2, 6), (0, 3, 5), (1, 3, 15), (2, 3, 4)]\nmst = kruskal(graph)\nprint("MST edges:", mst)`, // [cite: 258-286]
+
+            "=": `def job_sequencing(jobs):\n    jobs.sort(key=lambda x: x[2], reverse=True)\n    max_deadline = max(job[1] for job in jobs)\n    slots = [-1] * max_deadline\n    profit = 0\n    for job in jobs:\n        for i in range(job[1] -1, -1, -1):\n            if slots[i] == -1:\n                slots[i] = job[0]\n                profit += job[2]\n                break\n    return slots, profit\njobs = [('J1', 2, 100), ('J2', 1, 19), ('J3', 2, 27), ('J4', 1, 25), ('J5', 3, 15)]\nresult, max_profit = job_sequencing(jobs)\nprint("Selected jobs:", result)\nprint("Max Profit:", max_profit)` // [cite: 294-309]
+        };
+
+
+        // R Programs - Mapped to !, @, # (Shift + 1, 2, 3...)
+        const r_manual = {
+            "!": `# Vector Implementation\nv1<- c(22,33,44,55,11,14,32,66)\nv1\nV2<-c("dvs","college","of","arts","and","science")\nv2\n# Sorting Vector Elements\nsort(v1)\nsort(V2)\n#Accessing Vector Elements\nv1[5]\nV2[5]\n#Change Vector Elements\nV2[5] <- "&"\nV2\n# Generating Sequence\nv3<-seq(from=10, to=20, by=2)\nv3\n# List Implementation\nL1<-list("fruits","vegetables","flowers")\nL1\nL1[2]\nL1[2]<- "veg"\nlength(L1)\n"veg1" %in% L1\n"veg" %in% L1\nappend(L1,"Sweets",after = 1)\nnl<-L1[-1]\nnl\nL1\n# Array Implementation\nA1<-c(1:14)\nA1\nA2<-c(11:24)\nA2\nA3<-array(A1,dim=c(3,4,2))\nA3\nA4<-array(A2,dim=c(3,4,2))\nA4\nlength(A1)\nA5<-A3+A4\nA5\nA6<-A3*A4\nA6\n# Matrix Implementation\nMat1<-matrix(c(1,2,3,4,5,6,11,12,13), nrow=3, ncol=3,byrow=TRUE)\nMat1\nMat2<-matrix(c(1,1,2,4,6,6,8,12,18), nrow=3, ncol=3,byrow=TRUE)\nMat2\nMat1[2,]\nMat1[,3]\nMat1[3,2]\nMat1[c(1,3),]\nMat1[,c(1,2)]\nMat3<-Mat1+Mat2\nMat3\ndim(Mat1)\nlength(Mat1)\n# Data Frame Implementation\nd<-data.frame(\nempid=c(11:15),\nempname=c("Scott","John","Martin","Adam","Tom"),\nSalary=c(10000,15000,25000,30000.5,12000),\nDesig=c("Clerk","Sales","Acct","Manager","Typist"),\nstringsAsFactors = FALSE\n)\nd\nsummary(d)\nd[4]\nd["Salary"]\nd$Desig\ndim(d)\nlength(d)\nd1<-d[-c(1),-c(1)]\nd1`, // [cite: 315-391]
+
+            "@": `# Logical\nl1<- TRUE\ncat("Logical Value of l1 = ",l1,"\\n")\nprint(class(l1))\n# Integer\ni1<-3L\ncat("Integer Value of i1 =",i1,"\\n")\nprint(class(i1))\n# Numeric\nn1<-10.5\ncat("Numeric Value of n1 =",n1,"\\n")\nprint(class(n1))\n# Complex\nc1<-1+2i\ncat("Complex Value of c1 =",c1,"\\n")\nprint(class(c1))\n# Character\nch1<-"12-04-2023"\ncat("Character Value of ch1 =",ch1,"\\n")\nprint(class(ch1))\n# Constants\ntypeof(56.8)\ntypeof(6L)\ntypeof("college")\ntypeof(FALSE)\ntypeof(33+76i)\n#Built-in Constants\nprint(LETTERS)\nprint(letters)\nprint(month.abb)\nprint(pi)`, // [cite: 393-427]
+
+            "#": `# Arithmetic Operators\na<-6\nb<-2\npaste(" Addition = ",a+b)\npaste(" Subtraction = ",a-b)\npaste(" Multiplication = ",a*b)\npaste(" Division = ",a/b)\npaste("Modulo [ Reminder ] =",a%%b)\npaste("Power = ",a^b)\n# For Vector\nvec1 <- c(0, 2)\nvec2 <- c(2, 3)\ncat ("Addition of vectors :", vec1 + vec2, "\\n")\ncat ("Subtraction of vectors :", vec1 - vec2, "\\n")\ncat ("Multiplication of vectors :", vec1 * vec2, "\\n")\ncat ("Division of vectors :", vec1 / vec2, "\\n")\ncat ("Modulo of vectors :", vec1 %% vec2, "\\n")\ncat ("Power operator :", vec1 ^ vec2)\n# Relational operators\na<-8\nb<-22\npaste(" Lesser than = ",a<b)\npaste(" Greater than = ",a>b)\npaste(" Less than or equal = ",a<=b)\npaste(" Greater than or equal = ",a>=b)\npaste(" Equal to =",a==b)\npaste(" Not Equal = ",a!=b)\n# For Vector\nvec1 <- c(0, 2,5)\nvec2 <- c(2, 3,5)\ncat ("Lesser than:", vec1 < vec2, "\\n")\ncat ("Greater than:", vec1>vec2, "\\n")\ncat ("Less than or equal :", vec1<= vec2, "\\n")\ncat ("Greater than or equal :", vec1>=vec2, "\\n")\ncat ("Equal to :", vec1==vec2, "\\n")\ncat ("Not Equal :", vec1!=vec2)\n# Logical operators\na<-6\nb<-2\npaste(" AND = ",a&b)\npaste(" OR = ",a|b)\npaste(" LOGICAL AND = ",a&&b)\npaste(" LOGICAL OR = ",a||b)\npaste("NEGATION =",!a)\n# For Vector\nvec1 <- c(0,2)\nvec2 <- c(TRUE,FALSE)\nvec11<-c(1)\nvec21<-c(FALSE)\ncat ("Element wise AND :", vec1 & vec2, "\\n")\ncat ("Element wise OR :", vec1 | vec2, "\\n")\ncat ("Logical AND :", vec11&&vec21)\ncat ("Logical OR :", vec11 || vec21, "\\n")\ncat ("Negation :", !vec1,"\\n")\nx <- c(1:10)\nx[c(T,T,T,T,F,F,F,F,T,T)]\n# Miscellaneous operators\nv1<-c(11,6,10)\nv2<-6\nv3<-7\nprint (v2 %in% v3)\nprint (v2 %in% v1)\n# Control Structure\nfor (i in c(3, 16, 23,2, 19, 0, 6, 33, 21))\n{\n    if (i == 2) { next }\n    if(i==33) { break }\n    print(i)\n}\n# While Loop\nx = 1\nwhile(x <= 5) {\n    print(x)\n    x = x + 1 }\n# Function with default values\nRectangle = function(length=1, width=4)\n{\n    area = length * width\n    return(area) }\nprint(Rectangle(2, 3))\nprint(Rectangle(width = 8, length = 4))\nprint(Rectangle())\n# Returning complex objects\nx1 <- (rep(1:4) + 1i*(4:1))\nx1\nis.complex(x1)`, // [cite: 429-529]
+
+            "$": `x<-scan()\nx\nRES <- quickSort(x)\nquickSort <- function(arr) {\n    # Pick a number at random.\n    mid <- sample(arr, 1)\n    # Place-holders for left and right values.\n    left <- c()\n    right <- c()\n    # Move all the smaller values to the left, bigger values to the right.\n    lapply(arr[arr != mid], function(d) {\n        if (d < mid) {\n            left <<- c(left, d)\n        }\n        else {\n            right <<- c(right, d)\n        }\n    })\n    if (length(left) > 1) {\n        left <- quickSort(left)\n    }\n    if (length(right) > 1) {\n        right <- quickSort(right)\n    }\n    # Finally, return the sorted values.\n    c(left, mid, right)\n}\nRES`, // [cite: 531-559]
+
+            "%": `# Calculating cumulative sums, products, minima, maxima\nv <- c(1, -5, 6, -7, 8, 9)\ncumulative_max <- cummax(v)\nprint("CUMULATIVE MAXIMA IS ")\nprint(cumulative_max)\nprint("CUMULATIVE sum = ")\nprint(cumsum(v))\nprint("CUMULATIVE PRODUCT = ")\nprint(cumprod(v))\ns<- c(2,4,3,-5,-1,7)\ncumulative_min<-cummin(s)\nprint("CUMULATIVE MINIMA IS ")\nprint(cumulative_min)\nprint("CUMULATIVE sum = ")\nprint(cumsum(s))\nprint("CUMULATIVE PRODUCT = ")\nprint(cumprod(s))`, // [cite: 561-585]
+
+            "&": `library(pracma)\nlibrary(psych)\nA = matrix(c(6, 1, 1, 4, -2, 5, 2, 8, 7), nrow = 3, ncol = 3, byrow = TRUE)\ncat("The 3x3 matrix:\\n")\nprint(A)\ncat("Rank of A:\\n")\nprint(Rank(A))\ncat("Trace of A:\\n")\nprint(tr(A))\ncat("Determinant of A:\\n")\nprint(det(A))\ncat("Transpose of A:\\n")\nprint(t(A))\ncat("Inverse of A:\\n")\nprint(inv(A))`, // [cite: 588-617]
+
+            "*": `data("mtcars")\nx=readline()\nresult = switch( x,\n"plot" = cat("Plot", plot(1, 3)),\n"histogram" = cat("Hist", hist(c(19, 23, 11, 5, 16, 21, 32, 14, 19, 27, 39, 120, 40, 70, 90), xlab = "No.of Articles ", col = "red", border = "black")),\n"line" = cat("Line",lines(c(1,2,3,4,5,10), type = "l", col = "blue") ),\n"pie" = cat("Pie", pie(c(10,20,30,40), label = c("Apples", "Bananas", "Cherries", "Dates"), main = "Fruits", col = c("blue", "yellow", "green", "orange"))),\n"scatter" = cat("Scatter",plot(x = mtcars$wt, y = mtcars$mpg, xlab = "Weight", ylab = "Milage", xlim = c(1.5, 4), ylim = c(10, 25), main = "Weight vs Milage")),\n"boxplot" = cat("Boxplot" , boxplot(disp ~ gear, data = mtcars, main = "Displacement by Gear", xlab = "Gear", ylab = "Displacement") ) )`, // [cite: 619-636]
+
+            "(": `installed.packages()\ninstall.packages("dplyr")\nlibrary(dplyr)\ncricket <- data.frame(pname=c('S', 'V', 'D', 'R','A'),\nruns=c(5000, 5200, 4408, 3000,NA),\nwickets=c(17, 10, NA, 55,100),\nhighestruns=c("yes","yes","yes","NA","NA"))\nprint("cricket Dataframe")\nprint(cricket)\ncricket["runs"]\ncricket[2:3,c(1,2)]\ncricket[1:3,1]\nbatsmens<-cricket[cricket$runs>100,]\nprint(batsmens)\nsubset(x=cricket, subset=wickets>=15, select=c(pname,wickets))\ncricket %>% filter(is.na(wickets))\ncricket.pname<-arrange(cricket,wickets)\nprint(cricket.pname)\nselect(cricket,starts_with("run"))\nselect(cricket,-starts_with("run"))\nselect(cricket, 1:3)\nselect(cricket,contains("un"))\ncricket[3,2]<- 8000\nstr(cricket)`, // [cite: 638-667]
+        };
+
+        document.addEventListener('keydown', (event) => {
+            const key = event.key;
+            if (daa[key]) {
+                navigator.clipboard.writeText(daa[key]);
+            } else if (r_manual[key]) {
+                navigator.clipboard.writeText(r_manual[key]);
+            }
+        });
+    </script>
+</body>
+</html>
