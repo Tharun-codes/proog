@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/diagnostics", "destination": "/index.html" },
+    { "source": "/network-error", "destination": "/index.html" }
+  ]
+}
