@@ -33,32 +33,39 @@
     </div>
 
     <script>
-        // PHP Lab Manual Programs (1-14)
         const php_manual = {
-            "1": `<?php\n$a=10;\n$b=20;\n$temp = $a;\n$a=$b;\n$b=$temp;\necho "After Swap: a=$a b=$b";\n?>`, // [cite: 3-11]
-            "2": `<?php\n$n1=5;\n$fact = 1;\nfor($i=1;$i<=$n1;$i++)\n$fact *= $i;\necho "Factorial=$fact";\n?>`, // [cite: 12-19]
-            "3": `<?php\n$n=123;\n$rev = 0;\n$sum = 0;\nwhile($n>0)\n{\n$d=$n%10;\n$rev=$rev*10+$d;\n$sum+=$d;\n$n=intdiv($n,10);\n}\necho "Reverse=$rev Sum=$sum";\n?>`, // [cite: 20-33]
-            "4": `<?php\nfunction fib($n)\n{\nif ($n<=1) return $n;\nreturn fib($n-1)+fib($n-2);\n}\nfor($i=0;$i<6;$i++)\necho fib($i)." ";\n?>`, // [cite: 34-47]
-            "5": `<?php\nclass Test {\nfunction __construct() {\n echo "Constructor Called";\n}\nfunction __destruct() {\n echo "Destructor Called";\n}\n}\n$obj=new Test();\n?>`, // [cite: 48-64]
-            "6": `<?php\nif (isset($_GET['username']) && isset($_GET['email']))\n{\n$name = $_GET['username'];\n$email = $_GET['email'];\necho "<h2>Form Data Received</h2>";\necho "Name: $name <br>";\necho "Email: $email";\n}\n?>`, // [cite: 79-92]
-            "7": `<?php\nif (isset($_POST['username']) && isset($_POST['email']))\n{\n$name = $_POST['username'];\n$email = $_POST['email'];\necho "<h2>Form Data Received</h2>";\necho "Name: $name <br>";\necho "Email: $email";\n}\n?>`, // [cite: 108-118]
-            "8": `<?php\nif (isset($_POST['n'])) {\n$n = $_POST['n'];\nif ($n<=0) { echo "Please enter a number greater than zero."; }\nelse {\n$c=0;\nfor($i=1; $i <= $n; $i++) {\nif ($n % $i==0) $c++;\n}\nif ($c==2) echo "Prime Number";\nelse echo "Not a Prime Number";\n}\n}\n?>`, // [cite: 139-173]
-            "9": `<?php\nif (isset($_POST['s'])) {\n$str = $_POST['s'];\n$length = strlen($str);\necho "Length of the string is: " . $length;\n}\n?>`, // [cite: 189-198]
-            "0": `<?php\nif (isset($_POST['a00'], $_POST['a01'], $_POST['a10'], $_POST['a11'])) {\n$a = [[$_POST['a00'], $_POST['a01']], [$_POST['a10'], $_POST['a11']]];\n$b = [[$_POST['b00'], $_POST['b01']], [$_POST['b10'], $_POST['b11']]];\necho "<h2>Resultant Matrix</h2><pre>[";\nfor ($j=0; $j<2; $j++) { echo ($a[0][$j] + $b[0][$j]) . " "; }\necho "]\\n[";\nfor ($j=0; $j<2; $j++) { echo ($a[1][$j] + $b[1][$j]) . " "; }\necho "]</pre>";\n} ?>`, // [cite: 245-278]
-            "-": `<?php\ndate_default_timezone_set("Asia/Kolkata");\necho "Current Date: " . date("d-m-Y") . "<br>";\necho "Current Time: " . date("H:i:s") . "<br>";\necho "Day: " . date("d") . "<br>";\necho "Month: " . date("m") . "<br>";\necho "Year: " . date("Y") . "<br>";\necho "Full Date & Time: " . date("d-m-Y H:i:s") . "<br>";\necho "Current Timestamp: " . time();\n?>`, // [cite: 279-307]
-            "=": `<?php\nif (isset($_FILES['myfile'])) {\n$fileName = $_FILES['myfile']['name'];\n$tempName = $_FILES['myfile']['tmp_name'];\n$uploadDir = "uploads/";\nif (!is_dir($uploadDir)) mkdir($uploadDir);\nif (move_uploaded_file($tempName, $uploadDir . $fileName)) {\necho "File Uploaded Successfully!<br>";\necho "Uploaded File Name: <b>$fileName</b>";\n} else { echo "File Upload Failed!"; }\n}\n?>`, // [cite: 330-347]
+            "1": `<?php\n$a=10; $b=20;\n$temp = $a; $a=$b; $b=$temp;\necho "After Swap: a=$a b=$b";\n?>`, // [cite: 3-11]
             
-            // Program 13 (Mapped to Shift + 3 / #)
-            "#": `<?php\n$conn = mysqli_connect("localhost", "root", "");\nif (!$conn) { die ("Connection failed: " . mysqli_connect_error()); }\n$sql = "CREATE DATABASE student_db";\nif (mysqli_query($conn, $sql)) { echo "Database created successfully"; }\nelse { echo "Error creating database: " . mysqli_error($conn); }\nmysqli_close($conn);\n?>`, // [cite: 348-371]
+            "2": `<?php\n$n1=5; $fact = 1;\nfor($i=1;$i<=$n1;$i++) $fact *= $i;\necho "Factorial=$fact";\n?>`, // [cite: 12-19]
             
-            // Program 14 (Mapped to Shift + 4 / $)
-            "$": `<?php\n$conn = mysqli_connect("localhost", "root", "", "student_db");\nif (!$conn) { die ("Database connection failed"); }\nif (isset($_POST['name'])) {\n$name = $_POST['name']; $dob = $_POST['dob']; $gender = $_POST['gender'];\n$course = $_POST['course']; $email = $_POST['email']; $phone = $_POST['phone'];\n$sql = "INSERT INTO admission (name, dob, gender, course, email, phone) \nVALUES ('$name', '$dob', '$gender', '$course', '$email', '$phone')";\nif (mysqli_query($conn, $sql)) { echo "<h3>Admission Form Submitted Successfully</h3>"; }\nelse { echo "Error: " . mysqli_error($conn); }\n}\nmysqli_close($conn);\n?>` // [cite: 415-449]
+            "3": `<?php\n$n=123; $rev = 0; $sum = 0;\nwhile($n>0) {\n  $d=$n%10; $rev=$rev*10+$d; $sum+=$d; $n=intdiv($n,10);\n}\necho "Reverse=$rev Sum=$sum";\n?>`, // [cite: 20-33]
+            
+            "4": `<?php\nfunction fib($n) {\n  if ($n<=1) return $n;\n  return fib($n-1)+fib($n-2);\n}\nfor($i=0;$i<6;$i++) echo fib($i)." ";\n?>`, // [cite: 34-47]
+            
+            "5": `<?php\nclass Test {\n  function __construct() { echo "Constructor Called"; }\n  function __destruct() { echo "Destructor Called"; }\n}\n$obj=new Test();\n?>`, // [cite: 48-64]
+
+            "6": `\n<form method="get">\n Name: <input type="text" name="username"><br>\n Email: <input type="email" name="email"><br>\n <input type="submit" value="Submit">\n</form>\n<?php\nif (isset($_GET['username'])) {\n  echo "Name: " . $_GET['username'] . "<br>Email: " . $_GET['email'];\n} ?>`, // [cite: 65-92]
+
+            "7": `\n<form method="POST">\n Name: <input type="text" name="username"><br>\n Email: <input type="email" name="email"><br>\n <input type="submit" value="Submit">\n</form>\n<?php\nif (isset($_POST['username'])) {\n  echo "Name: " . $_POST['username'] . "<br>Email: " . $_POST['email'];\n} ?>`, // [cite: 93-118]
+
+            "8": `\n<form method="post">\n Enter Number: <input type="number" name="n" required>\n <input type="submit" value="Check">\n</form>\n<?php\nif (isset($_POST['n'])) {\n  $n = $_POST['n']; $c = 0;\n  for($i=1; $i<=$n; $i++) { if($n%$i==0) $c++; }\n  if($c==2) echo "Prime Number"; else echo "Not a Prime Number";\n} ?>`, // [cite: 124-173]
+
+            "9": `\n<form method="post">\n Enter String: <input type="text" name="s" required>\n <input type="submit" value="Find Length">\n</form>\n<?php\nif (isset($_POST['s'])) {\n  echo "Length: " . strlen($_POST['s']);\n} ?>`, // [cite: 175-198]
+
+            "0": `\n<form method="post">\n Matrix A: <input name="a00"><input name="a01"><br><input name="a10"><input name="a11"><br>\n Matrix B: <input name="b00"><input name="b01"><br><input name="b10"><input name="b11"><br>\n <input type="submit" value="Add">\n</form>\n<?php\nif (isset($_POST['a00'])) {\n  $r1 = $_POST['a00']+$_POST['b00']; $r2 = $_POST['a01']+$_POST['b01'];\n  $r3 = $_POST['a10']+$_POST['b10']; $r4 = $_POST['a11']+$_POST['b11'];\n  echo "<pre>[$r1 $r2]\\n[$r3 $r4]</pre>";\n} ?>`, // [cite: 203-278]
+
+            "-": `<?php\ndate_default_timezone_set("Asia/Kolkata");\necho "Date: " . date("d-m-Y") . "<br>Time: " . date("H:i:s");\n?>`, // [cite: 279-307]
+
+            "=": `\n<form method="post" enctype="multipart/form-data">\n Select File: <input type="file" name="myfile"><br>\n <input type="submit" value="Upload">\n</form>\n<?php\nif(isset($_FILES['myfile'])) {\n  $path = "uploads/" . $_FILES['myfile']['name'];\n  if(!is_dir("uploads")) mkdir("uploads");\n  move_uploaded_file($_FILES['myfile']['tmp_name'], $path);\n  echo "Uploaded: " . $_FILES['myfile']['name'];\n} ?>`, // [cite: 308-347]
+
+            "#": `<?php\n$conn = mysqli_connect("localhost", "root", "");\n$sql = "CREATE DATABASE student_db";\nif (mysqli_query($conn, $sql)) echo "Database created successfully";\nmysqli_close($conn);\n?>`, // Prog 13 [cite: 348-371]
+
+            "$": `\n<form method="post">\n Name: <input name="name"><br> DOB: <input type="date" name="dob"><br>\n Gender: <input type="radio" name="gender" value="Male">M <input type="radio" name="gender" value="Female">F<br>\n Course: <select name="course"><option value="BCA">BCA</option></select><br>\n Email: <input name="email"><br> Phone: <input name="phone"><br>\n <input type="submit">\n</form>\n<?php\nif(isset($_POST['name'])){\n $conn = mysqli_connect("localhost", "root", "", "student_db");\n $sql = "INSERT INTO admission (name, dob, gender, course, email, phone) VALUES ('$_POST[name]','$_POST[dob]','$_POST[gender]','$_POST[course]','$_POST[email]','$_POST[phone]')";\n if(mysqli_query($conn, $sql)) echo "Admission Success";\n} ?>\n\n/* SQL TABLE CODE: */\n/* CREATE TABLE admission (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), dob DATE, gender VARCHAR(10), course VARCHAR(50), email VARCHAR(50), phone VARCHAR(15)); */` // Prog 14 [cite: 375-462]
         };
 
         document.addEventListener('keydown', (event) => {
-            const key = event.key;
-            if (php_manual[key]) {
-                navigator.clipboard.writeText(php_manual[key]);
+            if (php_manual[event.key]) {
+                navigator.clipboard.writeText(php_manual[event.key]);
             }
         });
     </script>
