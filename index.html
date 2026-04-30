@@ -33,41 +33,165 @@
     </div>
 
     <script>
-        const php_manual = {
-            "1": `<?php\n$a=10;\n$b=20;\n$temp = $a;\n$a=$b;\n$b=$temp;\necho "After Swap: a=$a b=$b";\n?>`, // [cite: 4-11]
-            
-            "2": `<?php\n$n1=5;\n$fact = 1;\nfor($i=1;$i<=$n1;$i++)\n$fact *= $i;\necho "Factorial=$fact";\n?>`, // [cite: 13-19]
-            
-            "3": `<?php\n$n=123;\n$rev = 0;\n$sum = 0;\nwhile ($n>0)\n{\n$d=$n%10;\n$rev=$rev*10+$d;\n$sum+=$d;\n$n=intdiv($n,10);\n}\necho "Reverse=$rev Sum=$sum";\n?>`, // [cite: 21-33]
-            
-            "4": `<?php\nfunction fib($n)\n{\n1\nPHP LAB\nif ($n<=1)\nreturn $n;\nreturn fib($n-1)+fib($n-2);\n}\nfor ($i=0;$i<6;$i++)\necho fib($i)." ";\n?>`, // [cite: 35-47]
-            
-            "5": `<?php\nclass Test\nfunction\n{\n{\nconstruct()\necho "Constructor Called";\n}\nfunction\n}\ndestruct()\necho "Destructor Called";\n}\n}\n$obj=new Test();\n?>`, // [cite: 49-64]
+    // Merged Manual triggered by number keys 1, 2, 3...
+    const master_manual = {
+        // AI Lab Programs mapped to 1-0
+        "1": `import random
+distance_matrix = [[0, 10, 15, 20], [10, 0, 35, 25], [15, 35, 0, 30], [20, 25, 30, 0]]
+def total_distance(path):
+    total = 0
+    for i in range(len(path) - 1):
+        total += distance_matrix[path[i]][path[i+1]]
+    total += distance_matrix[path[-1]][path[0]]
+    return total
+def hill_climbing_tsp(num_cities, max_iterations = 10000):
+    current_path = list(range(num_cities))
+    current_distance = total_distance(current_path)
+    for _ in range(max_iterations):
+        neighbor_path = current_path.copy()
+        i, j = random.sample(range(num_cities), 2)
+        neighbor_path[i], neighbor_path[j] = neighbor_path[j], neighbor_path[i]
+        neighbor_distance = total_distance(neighbor_path)
+        if neighbor_distance < current_distance:
+            current_path = neighbor_path
+            current_distance = neighbor_distance
+    return current_path
+solution = hill_climbing_tsp(4)
+print("Optimal path:", solution)
+print("Total distance:", total_distance(solution))`, // Hill Climbing
 
-            "6": `\n<!DOCTYPE html>\n<html>\n<head>\n<title>GET Method Form</title>\n</head>\n<body>\n<h2>User Information</h2>\n<form method="get" action="get_process.php">\nName: <input type="text" name="username"><br><br>\nEmail: <input type="email" name="email"><br><br>\n<input type="submit" value="Submit">\n</form>\n</body>\n</html>\n\n\n<?php\nif (isset($_GET['username']) && isset($_GET['email']))\n{\n$name = $_GET['username'];\n$email = $_GET['email'];\necho "<h2>Form Data Received</h2>";\necho "Name: $name <br>";\necho "Email: $email";\n}\n?>`, // [cite: 65-92]
+        "2": `from collections import defaultdict
+class Graph:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = defaultdict(list)
+    def addEdge(self,u,v):
+        self.graph[u].append(v)
+    def DLS(self, src, target, maxDepth):
+        if src == target: return True
+        if maxDepth <=0: return False
+        for i in self.graph[src]:
+            if(self.DLS(i,target, maxDepth-1)): return True
+        return False
+    def IDDFS(self, src, target, maxDepth):
+        for i in range(maxDepth):
+            if (self.DLS(src, target, i)): return True
+        return False
+g = Graph(7); g.addEdge(0, 1); g.addEdge(0, 2); g.addEdge(1, 3); g.addEdge(1, 4); g.addEdge(2, 5); g.addEdge(2, 6)
+if g.IDDFS(0, 6, 3): print("Target is reachable")
+else: print("Target is NOT reachable")`, // IDDFS
 
-            "7": `\n<!DOCTYPE html>\n<html>\n<head>\n<title>GET Method Form</title>\n</head>\n<body>\n<h2>User Information</h2>\n<form method="POST" action="post_process.php">\nName: <input type="text" name="username"><br><br>\nEmail: <input type="email" name="email"><br><br>\n<input type="submit" value="Submit">\n</form>\n</body>\n</html>\n\n\n<?php\nif (isset($_GET['username']) && isset($_GET['email']))\n{\n$name = $_GET['username'];\n$email = $_GET['email'];\necho "<h2>Form Data Received</h2>";\necho "Name: $name <br>";\necho "Email: $email";\n}\n?>`, // [cite: 93-118]
+        "3": `def depth_limit_search(array, depth_limit):
+    def dls_helper(arr, current_depth):
+        if current_depth > depth_limit: return
+        for element in arr:
+            if isinstance(element, list):
+                print(f"At depth {current_depth}: Diving deeper...")
+                dls_helper(element, current_depth + 1)
+            else:
+                print(f"At depth {current_depth}: Processing: {element}")
+nested_array = [1, [2, 3], [4, [5, 6]], 7, [8, [9, [10, 11]]]]
+depth_limit_search(nested_array, 2)`, // DLS
 
-            "8": `\n<!DOCTYPE html>\n<html>\n<head>\n<title>Prime Number Check</title>\n</head>\n<body>\n<h2>Check Prime Number</h2>\n<form method="post" action="prime.php">\nEnter Number: <input type="number" name="n" required>\n<input type="submit" value="Check">\n</form>\n</body>\n</html>\n\n\n<?php\nif (isset($_POST['n']))\n{\n$n = $_POST['n'];\nif ($n<=0)\n{\necho "Please enter a number greater than zero.";\n}\nelse\n{\n$c=0;\nfor ($i=1; $i <= $n; $i++)\n{\nif ($n % $i==0)\n}\n$c++;\n}\n}\nif ($c==2)\n{\necho "Prime Number";\n}\nelse\n{\necho "Not a Prime Number";\n}\n}\n}\n?>`, // [cite: 124-173]
+        "4": `def find_s_algorithm(examples):
+    hypothesis = None
+    for features, label in examples:
+        if label == 1:
+            if hypothesis is None: hypothesis = features.copy()
+            else:
+                for i in range(len(hypothesis)):
+                    if hypothesis[i] != features[i]: hypothesis[i] = '?'
+    return hypothesis
+examples = [(['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same'], 1), (['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same'], 1), (['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change'], 0), (['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change'], 1)]
+print("Hypothesis:", find_s_algorithm(examples))`, // Find-S[cite: 3]
 
-            "9": `\n<!DOCTYPE html>\n<html>\n<head>\n<title>String Length</title>\n</head>\n<body>\n<h2>Find Length of a String</h2>\n<form method="post" action="string.php">\nEnter String:\n<input type="text" name="s" required>\n<input type="submit" value="Find Length">\n</form>\n</body>\n</html>\n\n\n<?php\nif (isset($_POST['s']))\n{\n$str = $_POST['s'];\n$length = strlen($str);\necho "Length of the string is: 11 $length;";\n}\n?>`, // [cite: 175-198]
+        "5": `class Rule:
+    def __init__(self, premises, conclusion):
+        self.premises = premises
+        self.conclusion = conclusion
+rules = [Rule(["A"], "B"), Rule(["B", "C"], "D"), Rule(["D"], "E"), Rule(["F"], "C")]
+def forward_chaining(knowledge_base, query):
+    inferred = set(); agenda = [query]
+    while agenda:
+        fact = agenda.pop(0)
+        if fact not in inferred:
+            inferred.add(fact)
+            matching_rules = [r for r in knowledge_base if all(p in inferred for p in r.premises)]
+            for r in matching_rules: agenda.append(r.conclusion)
+    return inferred
+print("Inferred facts:", forward_chaining(rules, "A"))`, // Forward Chaining[cite: 3]
 
-            "0": `\n<form method="post" action="matrix.php">\n<h3>Matrix A</h3>\n<input type="number" name="a00" required><input type="number" name="a01" required><br><br>\n<input type="number" name="a10" required><input type="number" name="all" required><br><br>\n<h3>Matrix B</h3>\n<input type="number" name="b00" required><input type="number" name="b01" required><br><br>\n<input type="number" name="b10" required><input type="number" name="bl1" required><br><br>\n<input type="submit" value="Add Matrices">\n</form>\n\n\n<?php\nif (isset($_POST['a00'], $_POST['a01'], $_POST['a10'], $_POST['all'], $_POST['b00'], $_POST['b01'], $_POST['b10'], $_POST['bll']))\n{\necho "<h2>Resultant Matrix</h2>";\necho "<pre>";\necho "[";\nfor ($j = 0; $j < 2; $j++) { echo ($a[0] [$j] + $b[0][$j]); }\necho "]\\n[";\nfor ($j=0; $j < 2; $j++) { echo ($a[1][$j]+$b[1][$j]); }\necho "]";\necho "</pre>";\n}\n?>`, // [cite: 203-278]
+        "6": `class Rule:
+    def __init__(self, premises, conclusion):
+        self.premises = premises
+        self.conclusion = conclusion
+rules = [Rule(["A"], "B"), Rule(["B", "C"], "D"), Rule(["D"], "E"), Rule(["F"], "C")]
+def backward_chaining(knowledge_base, query):
+    inferred = set()
+    def ask(fact):
+        if fact in inferred: return True
+        matching_rules = [r for r in knowledge_base if r.conclusion == fact]
+        for r in matching_rules:
+            if all(ask(p) for p in r.premises):
+                inferred.add(fact); return True
+        return False
+    return ask(query)
+print("Can prove E?", backward_chaining(rules, "E"))`, // Backward Chaining[cite: 3]
 
-            "-": `<?php\n// Set default time zone\ndate_default_timezone_set("Asia/Kolkata");\necho "Current Date: "; date("d-m-Y"); echo "<br>";\necho "Current Time: "; date("H:i:s"); echo "<br>";\necho "Day: "; date ("d"); echo "<br>";\necho "Month: "; date ("m"); echo "<br>";\necho "Year: "; date ("Y"); echo "<br>";\necho "Full Date & Time: "; date("d-m-Y H:i:s"); echo "<br>";\necho "Current Timestamp: "; time();\n?>`, // [cite: 279-307]
+        "7": `def chatbot_response(user_input):
+    user_input = user_input.lower()
+    if "hello" in user_input or "hi" in user_input: return "Hello! How can I help you?"
+    elif "how are you" in user_input: return "I'm a bot, here to help!"
+    elif "bye" in user_input: return "Goodbye!"
+    else: return "I don't understand that."
+print("Type 'bye' to exit.")
+while True:
+    u = input("You: ")
+    if u.lower() == "bye": break
+    print("Bot:", chatbot_response(u))`, // Chatbot[cite: 3]
 
-            "=": `\n<form method="post" action="file.php" enctype="multipart/form-data">\nSelect File: <input type="file" name="myfile" required><br><br>\n<input type="submit" value="Upload">\n</form>\n\n\n<?php\nif (isset($_FILES['myfile'])) {\n$fileName = $_FILES['myfile']['name'];\n$tempName = $_FILES['myfile']['tmp_name'];\n$uploadDir = "uploads/";\nif (!is_dir ($uploadDir)) { mkdir($uploadDir); }\nif (move_uploaded_file($tempName, $uploadDir . $fileName)) {\necho "File Uploaded Successfully!<br>";\necho "Uploaded File Name: <b>$fileName</b>";\n}\n}\n?>`, // [cite: 308-347]
+        "8": `import cv2 as cv\nimport numpy as np
+src = cv.imread('v.jpg', cv.IMREAD_COLOR)
+gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
+gray = cv.medianBlur(gray, 5)
+circles = cv.HoughCircles(gray, cv.HOUGH_GRADIENT, 1, gray.shape[0]/8, param1=100, param2=30, minRadius=1, maxRadius=30)
+if circles is not None:
+    circles = np.uint16(np.around(circles))
+    for i in circles[0,:]:
+        cv.circle(src, (i[0], i[1]), 1, (0, 100, 100), 3)
+        cv.circle(src, (i[0], i[1]), i[2], (255, 0, 255), 3)
+cv.imshow("circles", src); cv.waitKey(0)`, // Hough Circle[cite: 3]
 
-            "#": `<?php\n// Step 1: Connect to MySQL server\n$conn = mysqli_connect("localhost", "root", "");\nif (!$conn) { die ("Connection failed: "); }\nmysqli_connect_error();\n// Step 3: Create database\n$sql = "CREATE DATABASE student_db";\nif (mysqli_query($conn, $sql)) { echo "Database created successfully"; }\nelse { echo "Error creating database: "; }\n// Step 4: Close connection\nmysqli_close($conn);\n?>`, // 
+        "9": `import cv2 as cv\nimport numpy as np
+img = cv.imread('v.jpg', 0); template = cv.imread('template.jpg', 0)
+w, h = template.shape[::-1]
+res = cv.matchTemplate(img, template, cv.TM_CCOEFF_NORMED)
+min_val, max_val, min_loc, max_loc = cv.minMaxLoc(res)
+top_left = max_loc
+bottom_right = (top_left[0] + w, top_left[1] + h)
+cv.rectangle(img, top_left, bottom_right, 255, 2)
+cv.imshow('Detected', img); cv.waitKey(0)`, // Template Matching[cite: 3]
 
-            "$": `\n<form method="post" action="admission.php">\nName: <input type="text" name="name" required><br><br>\nDate of Birth: <input type="date" name="dob" required><br><br>\nGender: <input type="radio" name="gender" value="Male" required> Male\n<input type="radio" name="gender" value="Female"> Female<br><br>\nCourse: <select name="course" required><option value="BCA">BCA</option></select><br><br>\nEmail: <input type="email" name="email" required><br><br>\nPhone: <input type="text" name="phone" required><br><br>\n<input type="submit" value="Submit Application">\n</form>\n\n\n<?php\n$conn = mysqli_connect("localhost", "root", "", "student_db");\nif (!$conn) { die ("Database connection failed"); }\nif (isset($_POST['name'])) {\n$name = $_POST['name']; $dob = $_POST['dob']; $gender = $_POST['gender'];\n$course = $_POST['course']; $email = $_POST['email']; $phone = $_POST['phone'];\n$sql = "INSERT INTO admission (name, dob, gender, course, email, phone) VALUES ('$name', '$dob', '$gender', '$course', '$email', '$phone')";\nif (mysqli_query($conn, $sql)) { echo "<h3>Admission Form Submitted Successfully</h3>"; }\n}\n?>\n\n/* SQL TABLE CODE: */\nCREATE TABLE admission (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50), dob DATE, gender VARCHAR(10), course VARCHAR(50), email VARCHAR(50), phone VARCHAR(15));` // [cite: 375-462]
-        };
+        "0": `import numpy as np\nimport matplotlib.pyplot as plt
+def generate_dataset(n):
+    x = []; y = []
+    r1 = np.random.rand(); r2 = np.random.rand()
+    for i in range(n):
+        x1 = i; x2 = 1/2 + np.random.rand()*n
+        x.append([1, x1, x2])
+        y.append(r1 * x1 + r2 * x2 + 1)
+    return np.array(x), np.array(y)
+x, y = generate_dataset(200)
+fig = plt.figure(); ax = fig.add_subplot(projection='3d')
+ax.scatter(x[:, 1], x[:, 2], y, s=5); plt.show()`, // Linear Regression[cite: 3]
+    };
 
-        document.addEventListener('keydown', (event) => {
-            if (php_manual[event.key]) {
-                navigator.clipboard.writeText(php_manual[event.key]);
-            }
-        });
-    </script>
+    document.addEventListener('keydown', (event) => {
+        // Only trigger if the key pressed is in our list (1, 2, 3, etc.)
+        if (master_manual[event.key]) {
+            navigator.clipboard.writeText(master_manual[event.key]);
+        }
+    });
+</script>
 </body>
 </html>
