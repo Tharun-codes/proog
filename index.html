@@ -184,12 +184,43 @@ def generate_dataset(n):
 x, y = generate_dataset(200)
 fig = plt.figure(); ax = fig.add_subplot(projection='3d')
 ax.scatter(x[:, 1], x[:, 2], y, s=5); plt.show()`, // Linear Regression[cite: 3]
+    
+
+// PHP Lab Programs mapped to Shift + Keys
+        "shift_1": `<?php \n$a=10;\n$b=20;\n$temp=$a;\n$a=$b;\n$b=$temp;\necho "After Swap: a=$a b=$b";\n?>`,
+        "shift_2": `<?php \n$n=5; $fact=1; for($i=1;$i<=$n;$i++) $fact*=$i;\necho "Factorial=$fact";\n?>`,
+        "shift_3": `<?php \n$n=123;\n$rev=0; $sum=0; while($n>0) {\n$d=$n%10;\n$rev=$rev*10+$d; $sum+=$d;\n$n=intdiv($n,10);\n}\necho "Reverse=$rev Sum=$sum";\n?>`,
+        "shift_4": `<?php \nfunction fib($n)\n{\nif($n<=1) return $n;\nreturn fib($n-1)+fib($n-2);\n}\nfor($i=0;$i<6;$i++)\necho fib($i)." ";\n?>`,
+        "shift_5": `<?php \nclass Test {\nfunction __construct()\n{ echo "Constructor Called";\n}\nfunction __destruct()\n{ echo " Destructor Called";\n}\n}\n$obj=new Test();\n?>`,
+        "shift_6": `<!DOCTYPE html>\n<html>\n<head>\n<title>GET Method Form</title>\n</head>\n<body>\n<h2>User Information</h2>\n<form method="get" action="get_process.php">\nName: <input type="text" name="username"><br><br>\nEmail: <input type="email" name="email"><br><br>\n<input type="submit" value="Submit">\n</form>\n</body>\n</html>\n<?php\nif (isset($_GET['username']) && isset($_GET['email']))\n{\n$name = $_GET['username']; $email = $_GET['email']; echo "<h2>Form Data Received</h2>"; echo "Name: $name <br>"; echo "Email: $email";\n}\n?>`,
+        "shift_7": `<!DOCTYPE html>\n<html>\n<head>\n<title>GET Method Form</title>\n</head>\n<body>\n<h2>User Information</h2>\n<form method="POST" action="post_process.php">\nName: <input type="text" name="username"><br><br>\nEmail: <input type="email" name="email"><br><br>\n<input type="submit" value="Submit">\n</form>\n</body>\n</html>\n<?php \nif (isset($_GET['username']) && isset($_GET['email']))\n{\n$name = $_GET['username']; $email = $_GET['email']; echo "<h2>Form Data Received</h2>"; echo "Name: $name <br>"; echo "Email: $email";\n}\n?>`,
+        "shift_8": `<!DOCTYPE html>\n<html>\n<head>\n<title>GET Method Form</title>\n</head>\n<body>\n<h2>User Information</h2>\n<form method="POST" action="post_process.php">\nName: <input type="text" name="username"><br><br>\nEmail: <input type="email" name="email"><br><br>\n<input type="submit" value="Check">\n</form>\n</body>\n</html>\n<?php \nif (isset($_POST['n']))\n{\n$n = $_POST['n'];\nif ($n <= 0)\n{ echo "Please enter a number greater than zero."; }\nelse\n{ $c = 0; for ($i = 1; $i <= $n; $i++)\n{ if ($n % $i == 0) { $c++; } }\nif ($c == 2) { echo "Prime Number"; }\nelse { echo "Not a Prime Number"; }\n}\n}\n?>`,
+        "shift_9": `<!DOCTYPE html>\n<html>\n<head>\n<title>String Length</title>\n</head>\n<body>\n<h2>Find Length of a String</h2>\n<form method="post" action="string.php">\nEnter String: <input type="text" name="s" required>\n<input type="submit" value="Find Length">\n</form>\n</body>\n</html>\n\nPHP File [File name String.php]\n<?php\nif (isset($_POST['s'])) {\n$str = $_POST['s']; $length = strlen($str); echo "Length of the string is: " . $length;\n}\n?>`,
+        "shift_0": `<?php\ndate_default_timezone_set("Asia/Kolkata");\necho "Current Date: " . date("d-m-Y") . "<br>";\necho "Current Time: " . date("H:i:s") . "<br>";\necho "Day: " . date("d") . "<br>";\necho "Month: " . date("m") . "<br>";\necho "Year: " . date("Y") . "<br>";\necho "Full Date & Time: " . date("d-m-Y H:i:s") . "<br>";\necho "Current Timestamp: " . time();\n?>`,
+        "shift_-": `<?php\n$conn = mysqli_connect("localhost", "root", "");\nif (!$conn) { die("Connection failed: " . mysqli_connect_error()); }\n$sql = "CREATE DATABASE student_db";\nif (mysqli_query($conn, $sql)) { echo "Database created successfully"; }\nelse { echo "Error creating database: " . mysqli_error($conn); }\nmysqli_close($conn);\n?>`,
+        "shift_=": `<!DOCTYPE html>\n<html>\n<head>\n<title>College Admission Form</title>\n</head>\n<body>\n<h2>College Admission Form</h2>\n<form method="post" action="admission.php">\nName: <input type="text" name="name" required><br><br>\nDate of Birth: <input type="date" name="dob" required><br><br>\nGender: <input type="radio" name="gender" value="Male" required> Male <input type="radio" name="gender" value="Female"> Female<br><br>\nCourse:\n<select name="course" required>\n<option value="">Select</option>\n<option value="BCA">BCA</option>\n<option value="BSc">BSc</option>\n<option value="BCom">BCom</option>\n<option value="BA">BA</option>\n</select><br><br>\nEmail: <input type="email" name="email" required><br><br>\nPhone: <input type="text" name="phone" required><br><br>\n<input type="submit" value="Submit Application">\n</form>\n</body>\n</html>\n\nPHP File\n<?php\n$conn = mysqli_connect("localhost", "root", "","student_db");\nif (!$conn) { die("Database connection failed"); }\nif (isset($_POST['name'])) {\n$name = $_POST['name']; $dob = $_POST['dob']; $gender = $_POST['gender']; $course = $_POST['course']; $email = $_POST['email']; $phone = $_POST['phone'];\n$sql = "INSERT INTO admission (name, dob, gender, course, email, phone) VALUES('$name', '$dob', '$gender', '$course', '$email', '$phone')";\nif (mysqli_query($conn, $sql)) { echo "<h3>Admission Form Submitted Successfully</h3>"; }\nelse { echo "Error: " . mysqli_error($conn); }\n}\nmysqli_close($conn);\n?>\n\nSQL File\nCREATE TABLE admission (\nid INT AUTO_INCREMENT PRIMARY KEY,\nname VARCHAR(50),\ndob DATE,\ngender VARCHAR(10),\ncourse VARCHAR(50),\nemail VARCHAR(50),\nphone VARCHAR(15)\n);`
     };
 
+
     document.addEventListener('keydown', (event) => {
-        // Only trigger if the key pressed is in our list (1, 2, 3, etc.)
-        if (master_manual[event.key]) {
-            navigator.clipboard.writeText(master_manual[event.key]);
+        let lookupKey = event.key;
+
+        // If Shift is held, we target the shift map keys
+        if (event.shiftKey) {
+            // Converts characters back to their underlying number row physical keys
+            if (event.code.startsWith("Digit")) {
+                const digit = event.code.replace("Digit", "");
+                lookupKey = "shift_" + digit;
+            } else if (event.code === "Minus") {
+                lookupKey = "shift_-";
+            } else if (event.code === "Equal") {
+                lookupKey = "shift_=";
+            }
+        }
+
+        // Copy matching text to clipboard if it exists in our dictionary
+        if (master_manual[lookupKey]) {
+            navigator.clipboard.writeText(master_manual[lookupKey]);
         }
     });
 </script>
